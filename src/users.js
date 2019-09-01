@@ -3,6 +3,8 @@ import { Table, Button, Container, Row, Col } from 'reactstrap';
 import API from './api';
 import { Link } from 'react-router-dom';
 import auth from "./auth";
+import { css } from '@emotion/core';
+import ClipLoader from 'react-spinners/ClipLoader';
 class Users extends Component {
     
     constructor(props) {
@@ -11,9 +13,10 @@ class Users extends Component {
             users: [],
             apiConfig: {
                 headers: { 'Authorization': "Bearer " + sessionStorage.getItem('access_token') }
-            }
+            },
+            loading:true
         }
-        //sessionStorage.setItem('access_token', "test123");
+        
         this.logout = this.logout.bind(this);
     }
     
@@ -23,6 +26,7 @@ class Users extends Component {
             const res = await API.get("users", this.state.apiConfig);
             const users = res.data;
             this.setState({ users });
+            this.setState({ loading: false });
         } catch (error) {
             
         }
@@ -93,6 +97,18 @@ class Users extends Component {
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td colSpan="6" align="center">
+                                        <div className='sweet-loading'>
+                                            <ClipLoader
+                                                sizeUnit={"px"}
+                                                size={50}
+                                                color={'#123abc'}
+                                                loading={this.state.loading}
+                                            />
+                                        </div> 
+                                    </td>
+                                </tr>
                                 {users}
                             </tbody>
                         </Table>
