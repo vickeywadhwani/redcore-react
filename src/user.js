@@ -97,7 +97,11 @@ class User extends Component {
             if (this.state.action === "add") {
                 res = await API.post("users/", this.state.user, this.state.apiConfig);
             } else {
-                res = await API.put("users/" + this.state.userid, this.state.user, this.state.apiConfig); 
+                try {
+                    await API.put("users/" + this.state.userid, this.state.user, this.state.apiConfig);
+                } catch (error) {
+                    console.log(error.response);
+                }
             }
             console.log(res);
             if (res.status === 204 || res.status === 201)
