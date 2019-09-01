@@ -98,13 +98,13 @@ class User extends Component {
                 try {
                     res = await API.post("users/", this.state.user, this.state.apiConfig);
                 } catch (error) {
-                    console.log(error.response.data.message);
+                    alert(error.response.data.message);
                 }
             } else {
                 try {
                     await API.put("users/" + this.state.userid, this.state.user, this.state.apiConfig);
                 } catch (error) {
-                    console.log(error.response.data.message);
+                    alert(error.response.data.message);
                 }
             }
             console.log(res);
