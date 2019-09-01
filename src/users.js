@@ -35,7 +35,7 @@ class Users extends Component {
     remove = async userid => {
         if (window.confirm("Are you sure?")) {
             try {
-                await API.delete( "users/" + userid);
+                await API.delete("users/" + userid, this.state.apiConfig);
                 this.setState({
                     users: this.state.users.filter((user) => userid !== user.userid)
                 });
